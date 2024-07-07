@@ -3,7 +3,7 @@ import json
 import argparse
 
 def first_char(word):
-	return word[2] if len(word) > 2 else ''
+	return word[4] if len(word) > 4 else ''
 
 
 def generate_diff(file_path1, file_path2):
@@ -21,22 +21,22 @@ def generate_diff(file_path1, file_path2):
 
     for a in dict1.keys():
         if a not in dict2.keys():
-            result = f'- {a}: {dict1[a]}'
+            result = f'  - {a}: {dict1[a]}'
             list_result.append(result)
 
         elif dict1[a] == dict2[a]:
-            result = f'  {a}: {dict1[a]}'
+            result = f'    {a}: {dict1[a]}'
             list_result.append(result)
             dict2.pop(a)
 
         elif dict1[a] != dict2[a]:
-            result1 = f'- {a}: {dict1[a]}'
-            result2 = f'+ {a}: {dict2[a]}'
+            result1 = f'  - {a}: {dict1[a]}'
+            result2 = f'  + {a}: {dict2[a]}'
             list_result.append(result1)
             list_result.append(result2)
             dict2.pop(a)
     for b in dict2.keys():
-        result = f'+ {b}: {dict2[b]}'
+        result = f'  + {b}: {dict2[b]}'
         list_result.append(result)
 
     sorted_result = sorted(list_result, key=first_char)
