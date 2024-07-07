@@ -9,6 +9,6 @@ expected_result = """{
   + timeout: 20
   + verbose: True
 }"""
-
-actual_result = generate_diff("file1.json", "file2.json")
-assert actual_result == expected_result
+def test_generate_diff():
+	actual_result = generate_diff("file1.json", "file2.json")
+	assert actual_result == expected_result
