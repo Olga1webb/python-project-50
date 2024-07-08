@@ -11,6 +11,7 @@ python = "^3.10"
 
 [tool.poetry.scripts]
 gendiff = "hexlet_code.scripts.gendiff:main"
+gendiff_yml = "hexlet_code.scripts.gendiff_yml:main"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.1.0"
