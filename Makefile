@@ -15,3 +15,5 @@ lint:
 	poetry run flake8 hexlet_code
 report:
 	./gradlew jacocoTestReport
+test:
+	poetry run pytest
