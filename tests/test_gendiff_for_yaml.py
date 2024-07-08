@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-from hexlet_code.scripts.gendiff import generate_diff
+from hexlet_code.scripts.gendiff_yml import generate_diff_yml
 
-
-def test_generate_diff():
+def test_generate_diff_yml():
 	expected_result = """{
   - follow: False
     host: hexlet.io
@@ -11,7 +10,7 @@ def test_generate_diff():
   + timeout: 20
   + verbose: True
 }"""
-	actual_result = generate_diff("file1.json", "file2.json")
+	actual_result = generate_diff("file01.yml", "file02.yml")
 	assert actual_result == expected_result
 
 def test_same_files():
@@ -21,7 +20,7 @@ def test_same_files():
     proxy: 123.234.53.22
     timeout: 50
 }"""
-	actual_result = generate_diff("file1.json", "file1.json")
+	actual_result = generate_diff("file01.yml", "file01.yml")
 	assert actual_result == expected_result
 
 def test_one_empty():
@@ -31,12 +30,12 @@ def test_one_empty():
   - proxy: 123.234.53.22
   - timeout: 50
 }"""
-	actual_result = generate_diff("file1.json", "file0.json")
+	actual_result = generate_diff("file01.yml", "file00_copy.yml")
 	assert actual_result == expected_result
 
 def test_both_empty():
 	expected_result = """{
 
 }"""
-	actual_result = generate_diff("file0_copy.json", "file0.json")
+	actual_result = generate_diff("file00.yml", "file00_copy.yml")
 	assert actual_result == expected_result
