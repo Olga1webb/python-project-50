@@ -1,21 +1,6 @@
-#!/usr/bin/env python3
-import json
-import argparse
-
-
 def generate_diff(file_path1, file_path2):
     result = ''
     list_result = []
-
-    try:
-        with open(file_path1, 'r') as file1, open(file_path2, 'r') as file2:
-            dict1 = json.load(file1)
-            dict2 = json.load(file2)
-    except FileNotFoundError as e:
-        return f"Error: File not found - {e}"
-    except json.JSONDecodeError as e:
-        return f"Error: Invalid JSON - {e}"
-
     all_keys = set(dict1.keys()) | set(dict2.keys())
     for key in sorted(all_keys):
         if key in dict1 and key in dict2:
@@ -38,21 +23,3 @@ def generate_diff(file_path1, file_path2):
             list_result.append(result)
 
     return '{\n' + '\n'.join(list_result) + '\n}'
-
-def parser_diff():
-	parser = argparse.ArgumentParser(
-			description="Compares two configuration files and shows a difference.")
-	parser.add_argument("first_file")
-	parser.add_argument("second_file")
-	parser.add_argument('-f', '--format', help='set format of output') 
-	return parser.parse_args()
-	
-
-def main():
-	args = parser_diff()
-	diff = generate_diff(args.first_file, args.second_file)
-	print(diff)
-	
-
-if __name__ == '__main__':
-    main()
