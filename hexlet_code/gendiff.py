@@ -1,4 +1,4 @@
-def generate_diff(file_path1, file_path2):
+def generate_diff(dict1, dict2):
     result = ''
     list_result = []
     all_keys = set(dict1.keys()) | set(dict2.keys())

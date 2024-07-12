@@ -19,16 +19,16 @@ def parser_diff():
 def main():
 	args = parser_diff()
 	if args.first_file.endswith('.yml') or args.first_file.endswith('.yaml'):
-		dict1 = load_file_yml(file_path1)
-		dict2 = load_file_yml(file_path2)
+		dict1 = load_file_yml(args.first_file)
+		dict2 = load_file_yml(args.second_file)
 		diff = generate_diff_yml(dict1, dict2)
 
 	elif args.first_file.endswith('.json'):
-		dict1 = load_file(file_path1)
-		dict2 = load_file(file_path2)
+		dict1 = load_file(args.first_file)
+		dict2 = load_file(args.second_file)
 		diff = generate_diff(dict1, dict2)
 	print(diff)
 	
 
 if __name__ == '__main__':
-    main()
+	main()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from hexlet_code.scripts.gendiff import generate_diff
+from hexlet_code.gendiff import generate_diff
 
 
 def test_generate_diff():

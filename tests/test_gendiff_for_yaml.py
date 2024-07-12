@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-from hexlet_code.scripts.gendiff_yml import generate_diff_yml
+from hexlet_code.gendiff_yml import generate_diff_yml
+from from hexlet_code.read_file import load_file
 
 def test_generate_diff_yml():
 	expected_result = """{
