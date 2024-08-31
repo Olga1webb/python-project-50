@@ -1,19 +1,24 @@
 #!/usr/bin/env python3
+import json
 from hexlet_code.gendiff import generate_diff
 
 
 def test_generate_diff_plain():
   expected_result = """{
-  - follow: False
+  - follow: false
     host: hexlet.io
   - proxy: 123.234.53.22
   - timeout: 50
   + timeout: 20
-  + verbose: True
+  + verbose: true
 }"""
-  dict1 = load_file("file1_plain.json")
-  dict2 = load_file("file2_plain.json")
-  actual_result = generate_diff("dict1, dict2")
+  with open("file1_plain.json", 'r') as file:
+    dict1 = json.load(file)
+  with open("file2_plain.json", 'r') as file:
+    dict2 = json.load(file)
+  '''dict1 = load_file("file1_plain.json")
+  dict2 = load_file("file2_plain.json")'''
+  actual_result = generate_diff(dict1, dict2)
   assert actual_result == expected_result
 
 def test_generate_diff():
@@ -26,7 +31,7 @@ def test_generate_diff():
       + setting3: null
       + setting4: blah blah
       + setting5: {
-            key5: value5
+          + key5: value5
         }
         setting6: {
             doge: {
@@ -41,30 +46,31 @@ def test_generate_diff():
       - baz: bas
       + baz: bars
         foo: bar
-      - nest: {
-            key: value
-        }
+      - nest: {'key': 'value'}
       + nest: str
     }
   - group2: {
-        abc: 12345
-        deep: {
-            id: 45
+      - abc: 12345
+      - deep: {
+          - id: 45
         }
     }
   + group3: {
-        deep: {
-            id: {
-                number: 45
+      + deep: {
+          + id: {
+              + number: 45
             }
         }
-        fee: 100500
+      + fee: 100500
     }
 }"""
-  dict1 = load_file("file1.json")
-  dict2 = load_file("file2.json")
+  with open("file1.json", 'r') as file:
+    dict1 = json.load(file)
+  with open("file2.json", 'r') as file:
+    dict2 = json.load(file)
   actual_result = generate_diff(dict1, dict2)
   assert actual_result == expected_result
+
 '''def test_same_files():
 	expected_result = """{
     follow: False

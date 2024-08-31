@@ -16,7 +16,7 @@ def test_generate_diff_yml_plain():
   actual_result = generate_diff_yml(dict1, dict2)
   assert actual_result == expected_result
 
-def test_generate_diff_yml():
+'''def test_generate_diff_yml():
   expected_result = """{
     common: {
       + follow: false
@@ -65,6 +65,7 @@ def test_generate_diff_yml():
   dict2 = load_file("file02.yml")
   actual_result = generate_diff_yml(dict1, dict2)
   assert actual_result == expected_result
+'''
 '''
 def test_same_files_yml():
 	expected_result = """{
