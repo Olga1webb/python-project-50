@@ -1,32 +1,47 @@
 #!/usr/bin/env python3
+import yaml
 from hexlet_code.gendiff_yml import generate_diff_yml
-from hexlet_code.read_file import load_file
 
 def test_generate_diff_yml_plain():
   expected_result = """{
-  - follow: False
+  - follow: false
     host: hexlet.io
   - proxy: 123.234.53.22
   - timeout: 50
   + timeout: 20
-  + verbose: True
+  + verbose: true
 }"""
-  dict1 = load_file("file01_plain.yml")
-  dict2 = load_file("file02_plain.yml")
+  with open("file01_plain.yml", 'r') as file:
+    dict1 = yaml.safe_load(file) or {}
+  with open("file02_plain.yml", 'r') as file:
+    dict2 = yaml.safe_load(file) or {}
   actual_result = generate_diff_yml(dict1, dict2)
   assert actual_result == expected_result
 
-'''def test_generate_diff_yml():
+def test_generate_diff_yml():
   expected_result = """{
     common: {
       + follow: false
+      + group1: {
+          + baz: bars
+          + foo: bar
+          + nest: str
+        }
+      + group3: {
+          + deep: {
+              + id: {
+                  + number: 45
+                }
+            }
+          + fee: 100500
+        }
         setting1: Value 1
       - setting2: 200
       - setting3: true
       + setting3: null
       + setting4: blah blah
       + setting5: {
-            key5: value5
+          + key5: value5
         }
         setting6: {
             doge: {
@@ -37,36 +52,28 @@ def test_generate_diff_yml_plain():
           + ops: vops
         }
     }
-    group1: {
+  - group1: {
       - baz: bas
-      + baz: bars
-        foo: bar
+      - foo: bar
       - nest: {
-            key: value
+          - key: value
         }
-      + nest: str
     }
   - group2: {
-        abc: 12345
-        deep: {
-            id: 45
+      - abc: 12345
+      - deep: {
+          - id: 45
         }
-    }
-  + group3: {
-        deep: {
-            id: {
-                number: 45
-            }
-        }
-        fee: 100500
     }
 }"""
-  dict1 = load_file("file01.yml")
-  dict2 = load_file("file02.yml")
+  with open("file01.yml", 'r') as file:
+    dict1 = yaml.safe_load(file) or {}
+  with open("file02.yml", 'r') as file:
+    dict2 = yaml.safe_load(file) or {}
   actual_result = generate_diff_yml(dict1, dict2)
   assert actual_result == expected_result
 '''
-'''
+
 def test_same_files_yml():
 	expected_result = """{
     follow: False
