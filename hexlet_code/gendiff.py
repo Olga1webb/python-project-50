@@ -5,11 +5,12 @@ def to_json_format(value):
         return 'null'
     return value
 
+
 def generate_diff(dict1, dict2, depth=0):
     indent = '    ' * depth
     list_result = []
     all_keys = set(dict1.keys()) | set(dict2.keys())
-    
+
     for key in sorted(all_keys):
         if key in dict1 and key in dict2:
             if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
@@ -40,80 +41,3 @@ def generate_diff(dict1, dict2, depth=0):
                 list_result.append(f'{indent}  + {key}: {new_value}')
 
     return '{\n' + '\n'.join(list_result) + '\n' + indent + '}'
-
-
-'''
-{
-    common: {
-      + follow: False
-        setting1: Value 1
-      - setting2: 200
-      - setting3: True
-      + setting3: None
-      + setting4: blah blah
-      + setting5: {'key5': 'value5'}
-        setting6: {
-            doge: {
-              - wow: 
-              + wow: so much
-}
-            key: value
-          + ops: vops
-}
-}
-    group1: {
-      - baz: bas
-      + baz: bars
-        foo: bar
-      - nest: {'key': 'value'}
-      + nest: str
-}
-  - group2: {'abc': 12345, 'deep': {'id': 45}}
-  + group3: {'deep': {'id': {'number': 45}}, 'fee': 100500}
-}
-
-{
-    common: {
-      + follow: false
-        setting1: Value 1
-      - setting2: 200
-      - setting3: true
-      + setting3: null
-      + setting4: blah blah
-      + setting5: {
-            key5: value5
-        }
-        setting6: {
-            doge: {
-              - wow:
-              + wow: so much
-            }
-            key: value
-          + ops: vops
-        }
-    }
-    group1: {
-      - baz: bas
-      + baz: bars
-        foo: bar
-      - nest: {
-            key: value
-        }
-      + nest: str
-    }
-  - group2: {
-        abc: 12345
-        deep: {
-            id: 45
-        }
-    }
-  + group3: {
-        deep: {
-            id: {
-                number: 45
-            }
-        }
-        fee: 100500
-    }
-}
-'''

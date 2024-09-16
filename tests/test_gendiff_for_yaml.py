@@ -75,29 +75,29 @@ def test_generate_diff_yml():
 '''
 
 def test_same_files_yml():
-	expected_result = """{
+    expected_result = """{
     follow: False
     host: hexlet.io
     proxy: 123.234.53.22
     timeout: 50
 }"""
-	actual_result = generate_diff_yml("file01_plain.yml", "file01_plain.yml")
-	assert actual_result == expected_result
+    actual_result = generate_diff_yml("file01_plain.yml", "file01_plain.yml")
+    assert actual_result == expected_result
 
 def test_one_empty_yml():
-	expected_result = """{
+    expected_result = """{
   - follow: False
   - host: hexlet.io
   - proxy: 123.234.53.22
   - timeout: 50
 }"""
-	actual_result = generate_diff_yml("file01_plain.yml", "file00_copy.yml")
-	assert actual_result == expected_result
+    actual_result = generate_diff_yml("file01_plain.yml", "file00_copy.yml")
+    assert actual_result == expected_result
 
 def test_both_empty_yml():
-	expected_result = """{
+    expected_result = """{
 
 }"""
-	actual_result = generate_diff_yml("file00.yml", "file00_copy.yml")
-	assert actual_result == expected_result
+    actual_result = generate_diff_yml("file00.yml", "file00_copy.yml")
+    assert actual_result == expected_result
 '''

@@ -5,11 +5,12 @@ def to_yaml_format(value):
         return 'null'
     return value
 
+
 def generate_diff_yml(dict1, dict2, depth=0):
     indent = '    ' * depth
     list_result = []
     all_keys = set(dict1.keys()) | set(dict2.keys())
-    
+
     for key in sorted(all_keys):
         if key in dict1 and key in dict2:
             if isinstance(dict1[key], dict) and isinstance(dict2[key], dict):
@@ -40,7 +41,6 @@ def generate_diff_yml(dict1, dict2, depth=0):
                 list_result.append(f'{indent}  + {key}: {new_value}')
 
     return '{\n' + '\n'.join(list_result) + '\n' + indent + '}'
-
 
 
 '''def generate_diff_yml(dict1, dict2):
