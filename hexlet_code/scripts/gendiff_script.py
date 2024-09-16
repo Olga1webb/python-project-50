@@ -2,6 +2,7 @@
 import argparse
 from hexlet_code.gendiff import generate_diff
 from hexlet_code.build_diff_tree import build_diff_tree
+from hexlet_code.stylish_tree import stylish
 from hexlet_code.gendiff_yml import generate_diff_yml
 from hexlet_code.read_file import load_file
 from hexlet_code.read_file import load_file_yml
@@ -27,7 +28,8 @@ def main():
         dict1 = load_file(args.first_file)
         dict2 = load_file(args.second_file)
         diff = build_diff_tree(dict1, dict2)
-    print(diff)
+        stylish_diff = stylish(diff)
+    print(stylish_diff)
     
 
 if __name__ == '__main__':
