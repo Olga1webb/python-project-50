@@ -1,11 +1,13 @@
-'''def build_tree(dict_value):
-    dict_tree_unchanged = {}
+def build_tree(dict_value, depth):
+    depth +=1
+    nested_tree = {}
     for i in dict_value:
-        if isinstance(dict_value[i], dict):
-            dict_tree_unchanged[i] = {
-                'value': nested_value_unchanged
-                ''
-            }'''
+        nested_tree[i] = {
+            'value': dict_value[i], 
+            'category': 'unchanged',
+            'nest': depth
+        } 
+    return nested_tree
 
 
 
@@ -38,20 +40,19 @@ def build_diff_tree(dict1, dict2, depth=0):
                 }
 
         elif key in dict1:
-            ''' if isinstance(dict1[key], dict):
-                depth +=1
-                for i in dict1[key]:
-                    dict_tree[key] = {
-                        'value': dict1[key][i], 
-                        'category': 'unchanged', #присвоить ключу тип нестед
-                        'nest': depth
-                    } 
-            else:'''
-            dict_tree[key] = {
-                'value': dict1[key],
-                'category': 'removed',
-                'nest': depth
-            }
+            if isinstance(dict1[key], dict):
+                nested_tree = build_tree(dict1[key], depth)
+                dict_tree[key] = {
+                    'value': nested_tree,
+                    'category': 'nested',
+                    'nest': depth
+                }
+            else:
+                dict_tree[key] = {
+                    'value': dict1[key],
+                    'category': 'removed',
+                    'nest': depth
+                }
         else:
             dict_tree[key] = {
                 'value': dict2[key],
