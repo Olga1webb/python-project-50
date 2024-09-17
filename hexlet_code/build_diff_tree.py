@@ -1,3 +1,14 @@
+'''def build_tree(dict_value):
+    dict_tree_unchanged = {}
+    for i in dict_value:
+        if isinstance(dict_value[i], dict):
+            dict_tree_unchanged[i] = {
+                'value': nested_value_unchanged
+                ''
+            }'''
+
+
+
 def build_diff_tree(dict1, dict2, depth=0):
     dict_tree = {}
     all_keys = dict1.keys() | dict2.keys() #объединяем ключи обоих словарей
@@ -27,6 +38,15 @@ def build_diff_tree(dict1, dict2, depth=0):
                 }
 
         elif key in dict1:
+            ''' if isinstance(dict1[key], dict):
+                depth +=1
+                for i in dict1[key]:
+                    dict_tree[key] = {
+                        'value': dict1[key][i], 
+                        'category': 'unchanged', #присвоить ключу тип нестед
+                        'nest': depth
+                    } 
+            else:'''
             dict_tree[key] = {
                 'value': dict1[key],
                 'category': 'removed',
