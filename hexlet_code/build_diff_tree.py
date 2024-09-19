@@ -1,14 +1,20 @@
-def build_tree(dict_value, depth):
-    depth +=1
-    nested_tree = {}
-    for i in dict_value:
-        nested_tree[i] = {
-            'value': dict_value[i], 
-            'category': 'unchanged',
-            'nest': depth
-        } 
-    return nested_tree
-
+def build_tree(dict_value, depth): #строим дерево подсловаря
+    depth +=1 #указываем вложенность для оформления
+    nested_tree = {} #создаем пустой словарь для записи дерева подсловаря
+    for i in dict_value: #для каждого ключа подсловаря
+        if isinstance(dict_value[i], dict): #если он тоже словарь
+            nested_tree[i] = { #добавляем в новый словарь с категорией нестед
+                'value': dict_value[i], 
+                'category': 'nested',
+                'nest': depth
+            }
+        else: #если не словарь
+            nested_tree[i] = { #добавляем в новый словарь с категорией анченжд
+                'value': dict_value[i], 
+                'category': 'unchanged',
+                'nest': depth
+            }
+    return nested_tree #возвращаем полученый словарь
 
 
 def build_diff_tree(dict1, dict2, depth=0):
@@ -23,10 +29,10 @@ def build_diff_tree(dict1, dict2, depth=0):
                     'nest': depth
                 }
 
-            elif isinstance(dict1[key], dict) and isinstance(dict2[key], dict): #и значения по обоим – словари
+            elif isinstance(dict1[key], dict) and isinstance(dict2[key], dict): #и если же значения по обоим – словари
                 nested_value = build_diff_tree(dict1[key], dict2[key], depth+1) #сравнить подсловари
                 dict_tree[key] = {
-                    'value': nested_value, 
+                    'value': nested_value, #значением будет вычисленная разница подсловарей
                     'category': 'nested', #присвоить ключу тип нестед
                     'nest': depth
                 } 
@@ -39,12 +45,12 @@ def build_diff_tree(dict1, dict2, depth=0):
                     'nest': depth
                 }
 
-        elif key in dict1:
-            if isinstance(dict1[key], dict):
-                nested_tree = build_tree(dict1[key], depth)
-                dict_tree[key] = {
+        elif key in dict1: #если ключ только в первом файле
+            if isinstance(dict1[key], dict): #если явл словарем
+                nested_tree = build_tree(dict1[key], depth) #построить дерево подсловаря
+                dict_tree[key] = { #записываем значение разницы в дерево
                     'value': nested_tree,
-                    'category': 'nested',
+                    'category': 'removed',
                     'nest': depth
                 }
             else:
